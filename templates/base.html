@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+    <head></head>
+    <body>
+        {% for msg in get_flashed_messages() %} 
+        <p>{{ msg }}</p>
+        {% endfor %} {% block content %} {% endlblock %}
+    </body>
+</html>
