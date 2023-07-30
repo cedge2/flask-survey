@@ -6,21 +6,21 @@ RESPONSES_KEY = "responses"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "never-tell!"
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = flask_debugtoolbar
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
 @app.route("/")
 def show_survey_start():
 
-    return render_template("survey_start.html", survey = survey)
+    return render_template("survey_start.html", survey=survey)
 
 @app.route("/begin", methods=["POST"])
 def start_survey():
     session[RESPONSES_KEY] = []
     return redirect("/questions/0")
 
-@app.route("/answer", methods=[POST])
+@app.route("/answer", methods=["POST"])
 def handle_question():
     choice = request.form['answer']
     
@@ -48,7 +48,7 @@ def show_question(qid):
         return redirect(f"/questions/{len(responses)}")
 
     question = survey.questions[qid]
-        return render_template("question.html", question_num=qid, question=question)
+    return render_template("question.html", question_num=qid, question=question)
 
 @app.route("/complete")
 def complete():
